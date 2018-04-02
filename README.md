@@ -2,7 +2,11 @@
 
 Generate compressed assets and files for your Jekyll site at build time using [Brotli](https://github.com/google/brotli) compression.
 
-[![Build Status](https://travis-ci.org/philnash/jekyll-brotli.svg?branch=master)](https://travis-ci.org/philnash/jekyll-brotli)
+[![Gem Version](https://badge.fury.io/rb/jekyll-brotli.svg)](https://rubygems.org/gems/jekyll-brotli) [![Build Status](https://travis-ci.org/philnash/jekyll-brotli.svg?branch=master)](https://travis-ci.org/philnash/jekyll-brotli) [![Maintainability](https://api.codeclimate.com/v1/badges/9deb43d992a0c47a55e4/maintainability)](https://codeclimate.com/github/philnash/jekyll-brotli/maintainability) [![Inline docs](https://inch-ci.org/github/philnash/jekyll-brotli.svg?branch=master)](https://inch-ci.org/github/philnash/jekyll-brotli)
+
+[API docs](http://www.rubydoc.info/gems/jekyll-brotli/) | [GitHub repo](https://github.com/philnash/jekyll-brotli)
+
+## Why?
 
 Performance in web applications is important. You know that, which is why you have created a static site using Jekyll. But you want a bit more performance. You're serving your assets and files gzipped, but could it be better?
 
