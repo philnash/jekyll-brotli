@@ -1,6 +1,19 @@
 # Changelog
 
-## 1.0.0 / 2018-01-03
+## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v1.1.0...master)
+
+### Added
+
+* Adds frozen string literal comments
+* Tries to hook into Jekyll::Assets if available
+
+### Changed
+
+* Uses built in `Jekyll.env` instead of `ENV["JEKYLL_ENV"]`
+* Changes `Jekyll::Brotli::Compressor` to a module and implements a `compress_directory` method
+* Moves Jekyll::Brotli::COMPRESSABLE_EXTENSIONS into plugin config that can overwritten in the site config
+
+## 1.0.0 (2018-01-03) [☰](https://github.com/philnash/jekyll-brotli/commits/v1.0.0)
 
 ### Added
 
