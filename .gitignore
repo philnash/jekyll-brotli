@@ -12,3 +12,4 @@ Gemfile.lock
 .rspec_status
 
 .sass-cache/
+.jekyll-cache/
