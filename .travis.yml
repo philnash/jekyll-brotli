@@ -5,7 +5,6 @@ rvm:
   - 2.5
   - 2.4
   - 2.3
-  - 2.2
   - ruby-head
 env:
   - 'JEKYLL_VERSION="~> 3.0"'
