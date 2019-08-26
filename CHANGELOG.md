@@ -4,7 +4,7 @@
 
 ...
 
-## 2.1.0 (2018-11-24) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.0.0...v2.1.0)
+## 2.1.0 (2019-08-26) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.0.0...v2.1.0)
 
 ### Changed
 
