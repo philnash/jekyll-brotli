@@ -25,6 +25,8 @@ module Jekyll
       # @return void
       def self.compress_site(site)
         site.each_site_file do |file|
+          next unless regenerate? file, site
+
           compress_file(
             file.destination(site.dest),
             compressable_extensions(site)
@@ -67,8 +69,11 @@ module Jekyll
       # @return void
       def self.compress_file(file_name, extensions)
         return unless extensions.include?(File.extname(file_name))
-        compressed = "#{file_name}.br"
+        compressed = compressed(file_name)
         contents = ::Brotli.deflate(File.read(file_name), quality: 11)
+
+        Jekyll.logger.debug "Brotli: #{compressed}"
+
         File.open(compressed, "w+") do |file|
           file << contents
         end
@@ -77,8 +82,31 @@ module Jekyll
 
       private
 
+      def self.compressed(file_name)
+        "#{file_name}.br"
+      end
+
       def self.compressable_extensions(site)
         site.config['brotli'] && site.config['brotli']['extensions'] || Jekyll::Brotli::DEFAULT_CONFIG['extensions']
+      end
+
+      # Compresses the file if the site is built incrementally and the
+      # source was modified or the compressed file doesn't exist
+      #
+      # We access the cache directly because Jekyll doesn't expect us to
+      # ask twice and always responds false to regenerate?
+      #
+      # @see jekyll/regenerator.rb
+      def self.regenerate?(file, site)
+        source_path = if file.is_a? Page
+            site.in_source_dir(file.relative_path)
+          else
+            file.path
+          end
+
+        file_name = compressed(file.destination(site.dest))
+
+        site.regenerator.cache[source_path] || !File.exist?(file_name)
       end
     end
   end
