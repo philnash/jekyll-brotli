@@ -1,8 +1,12 @@
 # Changelog
 
-## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.0.0...master)
+## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.0...master)
 
-...
+## 2.2.0 (2019-12-31) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.1.0...v2.2.0)
+
+### Changed
+
+- - Doesn't regenerate files that haven't changed in incremental builds (thanks [@fauno](https://github.com/fauno))
 
 ## 2.1.0 (2019-08-26) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.0.0...v2.1.0)
 
