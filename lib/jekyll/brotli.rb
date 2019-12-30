@@ -19,6 +19,12 @@ Jekyll::Hooks.register :site, :post_write do |site|
   Jekyll::Brotli::Compressor.compress_site(site) if Jekyll.env == 'production'
 end
 
+Jekyll::Hooks.register :clean, :on_obsolete do |obsolete|
+  obsolete.delete_if do |path|
+    path.end_with? '.br'
+  end
+end
+
 begin
   require 'jekyll-assets'
 

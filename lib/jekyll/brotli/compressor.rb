@@ -25,6 +25,8 @@ module Jekyll
       # @return void
       def self.compress_site(site)
         site.each_site_file do |file|
+          next unless regenerate? file.destination(site.dest), site
+
           compress_file(
             file.destination(site.dest),
             compressable_extensions(site)
@@ -48,7 +50,11 @@ module Jekyll
       def self.compress_directory(dir, site)
         extensions = compressable_extensions(site).join(',')
         files = Dir.glob(dir + "/**/*{#{extensions}}")
-        files.each { |file| compress_file(file, compressable_extensions(site)) }
+        files.each do |file|
+          next unless regenerate? file, site
+
+          compress_file(file, compressable_extensions(site))
+        end
       end
 
       ##
@@ -67,8 +73,11 @@ module Jekyll
       # @return void
       def self.compress_file(file_name, extensions)
         return unless extensions.include?(File.extname(file_name))
-        compressed = "#{file_name}.br"
+        compressed = compressed(file_name)
         contents = ::Brotli.deflate(File.read(file_name), quality: 11)
+
+        Jekyll.logger.debug "Brotli: #{compressed}"
+
         File.open(compressed, "w+") do |file|
           file << contents
         end
@@ -77,8 +86,22 @@ module Jekyll
 
       private
 
+      def self.compressed(file_name)
+        "#{file_name}.br"
+      end
+
       def self.compressable_extensions(site)
         site.config['brotli'] && site.config['brotli']['extensions'] || Jekyll::Brotli::DEFAULT_CONFIG['extensions']
+      end
+
+      # Compresses the file if the site is built incrementally and the
+      # source was modified or the compressed file doesn't exist
+      def self.regenerate?(file, site)
+        compressed = compressed(file)
+
+        return true unless File.exist? compressed
+
+        File.mtime(file) > File.mtime(compressed)
       end
     end
   end
