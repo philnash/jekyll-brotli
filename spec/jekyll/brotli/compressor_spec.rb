@@ -54,11 +54,11 @@ RSpec.describe Jekyll::Brotli::Compressor do
           dest_dir("index.html"),
           dest_dir("css/main.css"),
           dest_dir("about/index.html"),
-          dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.htlm"),
+          dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.html"),
           dest_dir("feed.xml")
         ]
         files.each do |file_name|
-          expect(File.exist?("#{file_name}.br"))
+          expect(File.exist?("#{file_name}.br")).to be true
         end
       end
 
@@ -69,11 +69,11 @@ RSpec.describe Jekyll::Brotli::Compressor do
             dest_dir("index.html"),
             dest_dir("css/main.css"),
             dest_dir("about/index.html"),
-            dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.htlm"),
+            dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.html"),
             dest_dir("feed.xml")
           ]
           files.each do |file_name|
-            expect(File.exist?("#{file_name}.br"))
+            expect(File.exist?("#{file_name}.br")).to be true
           end
         end
       end

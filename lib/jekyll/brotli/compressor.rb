@@ -47,7 +47,7 @@ module Jekyll
       # @return void
       def self.compress_directory(dir, site)
         extensions = compressable_extensions(site).join(',')
-        files = Dir.glob(dir + "**/*{#{extensions}}")
+        files = Dir.glob(dir + "/**/*{#{extensions}}")
         files.each { |file| compress_file(file, compressable_extensions(site)) }
       end
 
