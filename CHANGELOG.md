@@ -1,6 +1,12 @@
 # Changelog
 
-## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.0...master)
+## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.1...master)
+
+## 2.2.1 (2020-01-30) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.0...v2.2.1)
+
+### Changed
+
+- Fixes the path handed to `Dir.glob` by using `File.join` instead of string concatenation
 
 ## 2.2.0 (2019-12-31) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.1.0...v2.2.0)
 
