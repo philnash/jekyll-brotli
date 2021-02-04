@@ -13,7 +13,8 @@ module Jekyll
         '.stl',
         '.xml',
         '.svg',
-        '.eot'
+        '.eot',
+        '.json'
       ].freeze
     }.freeze
   end
