@@ -49,8 +49,12 @@ module Jekyll
       # @return void
       def self.compress_directory(dir, site)
         extensions = compressable_extensions(site).join(',')
-        files = Dir.glob(dir + "**/*{#{extensions}}")
-        files.each { |file| compress_file(file, compressable_extensions(site)) }
+        files = Dir.glob(File.join(dir, "**", "*{#{extensions}}"))
+        files.each do |file|
+          next unless regenerate? file, site
+
+          compress_file(file, compressable_extensions(site))
+        end
       end
 
       ##
@@ -93,12 +97,11 @@ module Jekyll
       # Compresses the file if the site is built incrementally and the
       # source was modified or the compressed file doesn't exist
       def self.regenerate?(file, site)
-        orig = file.destination(site.dest)
-        compressed = compressed(orig)
+        compressed = compressed(file)
 
         return true unless File.exist? compressed
 
-        File.mtime(orig) > File.mtime(compressed)
+        File.mtime(file) > File.mtime(compressed)
       end
     end
   end

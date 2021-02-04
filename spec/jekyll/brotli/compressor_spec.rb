@@ -46,37 +46,75 @@ RSpec.describe Jekyll::Brotli::Compressor do
       Jekyll::Brotli::Compressor.compress_file(file_name, ['.html'])
       expect(File.exist?("#{file_name}.br")).to be false
     end
+  end
 
-    describe "given a Jekyll site" do
-      it "compresses all files in the site" do
-        Jekyll::Brotli::Compressor.compress_site(site)
-        files = [
-          dest_dir("index.html"),
-          dest_dir("css/main.css"),
-          dest_dir("about/index.html"),
-          dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.htlm"),
-          dest_dir("feed.xml")
-        ]
-        files.each do |file_name|
-          expect(File.exist?("#{file_name}.br"))
-        end
+  describe "given a Jekyll site" do
+    it "compresses all files in the site" do
+      Jekyll::Brotli::Compressor.compress_site(site)
+      files = [
+        dest_dir("index.html"),
+        dest_dir("css/main.css"),
+        dest_dir("about/index.html"),
+        dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.html"),
+        dest_dir("feed.xml")
+      ]
+      files.each do |file_name|
+        expect(File.exist?("#{file_name}.br")).to be true
       end
+    end
 
-      describe "given a destination directory" do
-        it "compresses all the text files in the directory" do
-          Jekyll::Brotli::Compressor.compress_directory(dest_dir, site)
-          files = [
-            dest_dir("index.html"),
-            dest_dir("css/main.css"),
-            dest_dir("about/index.html"),
-            dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.htlm"),
-            dest_dir("feed.xml")
-          ]
-          files.each do |file_name|
-            expect(File.exist?("#{file_name}.br"))
-          end
-        end
+    it "doesn't compress the files again if they are already compressed and haven't changed" do
+      Jekyll::Brotli::Compressor.compress_site(site)
+
+      allow(Brotli).to receive(:deflate)
+
+      Jekyll::Brotli::Compressor.compress_site(site)
+      expect(Brotli).not_to have_received(:deflate)
+    end
+
+    it "does compress files that change between compressions" do
+      Jekyll::Brotli::Compressor.compress_site(site)
+
+      allow(Brotli).to receive(:deflate).and_call_original
+
+      FileUtils.touch(dest_dir("about/index.html"), mtime: Time.now + 1)
+      Jekyll::Brotli::Compressor.compress_site(site)
+      expect(Brotli).to have_received(:deflate).once
+    end
+  end
+
+  describe "given a destination directory" do
+    it "compresses all the text files in the directory" do
+      Jekyll::Brotli::Compressor.compress_directory(dest_dir, site)
+      files = [
+        dest_dir("index.html"),
+        dest_dir("css/main.css"),
+        dest_dir("about/index.html"),
+        dest_dir("jekyll/update/2018/01/01/welcome-to-jekyll.html"),
+        dest_dir("feed.xml")
+      ]
+      files.each do |file_name|
+        expect(File.exist?("#{file_name}.br")).to be true
       end
+    end
+
+    it "doesn't compress the files again if they are already compressed and haven't changed" do
+      Jekyll::Brotli::Compressor.compress_directory(dest_dir, site)
+
+      allow(Brotli).to receive(:deflate)
+
+      Jekyll::Brotli::Compressor.compress_directory(dest_dir, site)
+      expect(Brotli).not_to have_received(:deflate)
+    end
+
+    it "does compress files that change between compressions" do
+      Jekyll::Brotli::Compressor.compress_directory(dest_dir, site)
+
+      allow(Brotli).to receive(:deflate).and_call_original
+
+      FileUtils.touch(dest_dir("about/index.html"), mtime: Time.now + 1)
+      Jekyll::Brotli::Compressor.compress_directory(dest_dir, site)
+      expect(Brotli).to have_received(:deflate).once
     end
   end
 end

@@ -1,10 +1,10 @@
 sudo: false
 language: ruby
 rvm:
+  - 2.7
   - 2.6
   - 2.5
   - 2.4
-  - 2.3
   - ruby-head
 env:
   - 'JEKYLL_VERSION="~> 3.0"'
@@ -12,7 +12,4 @@ env:
 matrix:
   allow_failures:
     - rvm: ruby-head
-  exclude:
-    - rvm: 2.3
-      env: 'JEKYLL_VERSION="~> 4.0"'
 script: bundle exec rspec
