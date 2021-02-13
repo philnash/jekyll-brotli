@@ -10,11 +10,6 @@ module Jekyll
   end
 end
 
-Jekyll::Hooks.register :site, :after_init do |site|
-  config = site.config['brotli'] || {}
-  site.config['brotli'] = Jekyll::Brotli::DEFAULT_CONFIG.merge(config) || {}
-end
-
 Jekyll::Hooks.register :site, :post_write do |site|
   Jekyll::Brotli::Compressor.compress_site(site) if Jekyll.env == 'production'
 end

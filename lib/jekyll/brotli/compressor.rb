@@ -91,7 +91,7 @@ module Jekyll
       end
 
       def self.compressable_extensions(site)
-        site.config['brotli'] && site.config['brotli']['extensions'] || Jekyll::Brotli::DEFAULT_CONFIG['extensions']
+        site.config.dig("brotli", "extensions") || Jekyll::Brotli::DEFAULT_CONFIG.fetch("extensions")
       end
 
       # Compresses the file if the site is built incrementally and the
