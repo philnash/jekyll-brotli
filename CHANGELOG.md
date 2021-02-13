@@ -1,6 +1,19 @@
 # Changelog
 
-## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.1...main)
+## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.3.0...main)
+
+...
+
+## 2.3.0 (2021-02-13) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.1...v2.3.0)
+
+### Fixed
+
+- Stop overwriting Jekyll config, which invalidates the Jekyll cache (see https://github.com/jekyll/jekyll/issues/8551)
+
+### Changed
+
+- Added JSON files to compressable extensions
+- Moved from Travis CI to GitHub Actions
 
 ## 2.2.1 (2020-01-30) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.0...v2.2.1)
 
