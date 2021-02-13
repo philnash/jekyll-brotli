@@ -1,6 +1,6 @@
 # Changelog
 
-## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.1...master)
+## Ongoing [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.1...main)
 
 ## 2.2.1 (2020-01-30) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.0...v2.2.1)
 
