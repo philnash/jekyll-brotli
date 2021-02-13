@@ -2,7 +2,7 @@
 
 Generate compressed assets and files for your Jekyll site at build time using [Brotli](https://github.com/google/brotli) compression.
 
-[![Gem Version](https://badge.fury.io/rb/jekyll-brotli.svg)](https://rubygems.org/gems/jekyll-brotli) [![Build status](https://github.com/philnash/jekyll-brotli/workflows/tests/badge.svg)](https://github.com/philnash/jekyll-brotli/actions) [![Maintainability](https://api.codeclimate.com/v1/badges/9deb43d992a0c47a55e4/maintainability)](https://codeclimate.com/github/philnash/jekyll-brotli/maintainability) [![Inline docs](https://inch-ci.org/github/philnash/jekyll-brotli.svg?branch=master)](https://inch-ci.org/github/philnash/jekyll-brotli)
+[![Gem Version](https://badge.fury.io/rb/jekyll-brotli.svg)](https://rubygems.org/gems/jekyll-brotli) [![Build status](https://github.com/philnash/jekyll-brotli/workflows/tests/badge.svg)](https://github.com/philnash/jekyll-brotli/actions) [![Maintainability](https://api.codeclimate.com/v1/badges/9deb43d992a0c47a55e4/maintainability)](https://codeclimate.com/github/philnash/jekyll-brotli/maintainability) [![Inline docs](https://inch-ci.org/github/philnash/jekyll-brotli.svg?branch=main)](https://inch-ci.org/github/philnash/jekyll-brotli)
 
 [API docs](http://www.rubydoc.info/gems/jekyll-brotli/) | [GitHub repo](https://github.com/philnash/jekyll-brotli)
 
@@ -68,4 +68,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Jekyll::Brotli project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/philnash/jekyll-gzip/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Jekyll::Brotli project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/philnash/jekyll-gzip/blob/main/CODE_OF_CONDUCT.md).
