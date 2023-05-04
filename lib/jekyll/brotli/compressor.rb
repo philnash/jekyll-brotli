@@ -24,12 +24,15 @@ module Jekyll
       #
       # @return void
       def self.compress_site(site)
+        quality = compression_quality(site)
+
         site.each_site_file do |file|
           next unless regenerate? file.destination(site.dest), site
 
           compress_file(
             file.destination(site.dest),
-            compressable_extensions(site)
+            compressable_extensions(site),
+            quality
           )
         end
       end
