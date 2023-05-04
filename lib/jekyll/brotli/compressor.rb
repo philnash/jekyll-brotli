@@ -50,10 +50,11 @@ module Jekyll
       def self.compress_directory(dir, site)
         extensions = compressable_extensions(site).join(',')
         files = Dir.glob(File.join(dir, "**", "*{#{extensions}}"))
+        quality = compression_quality(site)
         files.each do |file|
           next unless regenerate? file, site
 
-          compress_file(file, compressable_extensions(site))
+          compress_file(file, compressable_extensions(site), quality)
         end
       end
 
@@ -71,10 +72,10 @@ module Jekyll
       #    compressed.
       #
       # @return void
-      def self.compress_file(file_name, extensions)
+      def self.compress_file(file_name, extensions, quality = 11)
         return unless extensions.include?(File.extname(file_name))
         compressed = compressed(file_name)
-        contents = ::Brotli.deflate(File.read(file_name), quality: 11)
+        contents = ::Brotli.deflate(File.read(file_name), quality: quality)
 
         Jekyll.logger.debug "Brotli: #{compressed}"
 
@@ -92,6 +93,10 @@ module Jekyll
 
       def self.compressable_extensions(site)
         site.config.dig("brotli", "extensions") || Jekyll::Brotli::DEFAULT_CONFIG.fetch("extensions")
+      end
+
+      def self.compression_quality(site)
+        site.config.dig("brotli", "quality") || Jekyll::Brotli::DEFAULT_CONFIG.fetch("quality")
       end
 
       # Compresses the file if the site is built incrementally and the
