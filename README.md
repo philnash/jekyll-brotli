@@ -66,6 +66,17 @@ brotli:
     - '.js
 ```
 
+#### Compression quality
+
+By default, `Jekyll::Brotli` uses the maximum compression quality
+supported by Brotli, which is 11.  You can supply your own compression
+quality by setting a number between 0 and 11 on `_config.yml`.
+
+```yml
+brotli:
+  quality: 9
+```
+
 ### Serving pre-compiled gzip files
 
 You will likely need to adjust your web server config to serve these precomputed gzip files. See below for common server configurations:

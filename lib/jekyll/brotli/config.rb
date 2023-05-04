@@ -3,6 +3,7 @@
 module Jekyll
   module Brotli
     DEFAULT_CONFIG = {
+      'quality' => 11,
       'extensions' => [
         '.html',
         '.css',
