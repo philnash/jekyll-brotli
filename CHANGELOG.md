@@ -4,6 +4,12 @@
 
 ...
 
+## 2.4.0 (2023-08-29) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.3.0...v2.4.0)
+
+### Changed
+
+- Added config to set the Brotli compression level (thanks [@fauno](https://github.com/fauno))
+
 ## 2.3.0 (2021-02-13) [☰](https://github.com/philnash/jekyll-brotli/compare/v2.2.1...v2.3.0)
 
 ### Fixed
