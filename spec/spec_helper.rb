@@ -40,8 +40,9 @@ RSpec.configure do |config|
     YAML.load(File.read(source_dir('_config.yml')))
   end
 
-  def make_site
+  def make_site(extra_config = {})
     config = Jekyll::Utils.deep_merge_hashes(CONFIG_DEFAULTS, site_config)
+    config = Jekyll::Utils.deep_merge_hashes(config, extra_config)
     site_config = Jekyll.configuration(config)
     Jekyll::Site.new(site_config)
   end

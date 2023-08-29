@@ -46,6 +46,26 @@ RSpec.describe Jekyll::Brotli::Compressor do
       Jekyll::Brotli::Compressor.compress_file(file_name, ['.html'])
       expect(File.exist?("#{file_name}.br")).to be false
     end
+
+    it "compresses at level 11 by default" do
+      file_name = dest_dir("index.html")
+      file_contents = File.read(file_name)
+      allow(Brotli).to receive(:deflate)
+
+      Jekyll::Brotli::Compressor.compress_file(file_name, ['.html'])
+
+      expect(Brotli).to have_received(:deflate).with(file_contents, quality: 11)
+    end
+
+    it "compresses at an optional quality level" do
+      file_name = dest_dir("index.html")
+      file_contents = File.read(file_name)
+      allow(Brotli).to receive(:deflate)
+
+      Jekyll::Brotli::Compressor.compress_file(file_name, ['.html'], 7)
+
+      expect(Brotli).to have_received(:deflate).with(file_contents, quality: 7)
+    end
   end
 
   describe "given a Jekyll site" do
@@ -81,6 +101,18 @@ RSpec.describe Jekyll::Brotli::Compressor do
       Jekyll::Brotli::Compressor.compress_site(site)
       expect(Brotli).to have_received(:deflate).once
     end
+
+    it "compresses at a different quality if provided in the config" do
+      new_site = make_site("brotli" => { "quality" => 5 })
+      new_site.process
+      Jekyll::Brotli::Compressor.compress_site(new_site)
+
+      allow(Brotli).to receive(:deflate).and_call_original
+
+      FileUtils.touch(dest_dir("about/index.html"), mtime: Time.now + 1)
+      Jekyll::Brotli::Compressor.compress_site(new_site)
+      expect(Brotli).to have_received(:deflate).once.with(anything, quality: 5)
+    end
   end
 
   describe "given a destination directory" do
@@ -115,6 +147,19 @@ RSpec.describe Jekyll::Brotli::Compressor do
       FileUtils.touch(dest_dir("about/index.html"), mtime: Time.now + 1)
       Jekyll::Brotli::Compressor.compress_directory(dest_dir, site)
       expect(Brotli).to have_received(:deflate).once
+    end
+
+    it "compresses at a different quality if provided in the config" do
+      new_site = make_site("brotli" => { "quality" => 5 })
+      new_site.process
+
+      Jekyll::Brotli::Compressor.compress_directory(dest_dir, new_site)
+
+      allow(Brotli).to receive(:deflate).and_call_original
+
+      FileUtils.touch(dest_dir("about/index.html"), mtime: Time.now + 1)
+      Jekyll::Brotli::Compressor.compress_directory(dest_dir, new_site)
+      expect(Brotli).to have_received(:deflate).once.with(anything, quality: 5)
     end
   end
 end
