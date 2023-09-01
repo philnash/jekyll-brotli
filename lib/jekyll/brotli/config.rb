@@ -9,6 +9,7 @@ module Jekyll
         '.css',
         '.js',
         '.json',
+        '.jsonld',
         '.txt',
         '.ttf',
         '.atom',
