@@ -63,7 +63,7 @@ brotli:
   extensions:
     - '.html'
     - '.css'
-    - '.js
+    - '.js'
 ```
 
 #### Compression quality
