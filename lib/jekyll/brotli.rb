@@ -15,6 +15,8 @@ Jekyll::Hooks.register :site, :post_write do |site|
 end
 
 Jekyll::Hooks.register :clean, :on_obsolete do |obsolete|
+  next unless Jekyll.env == 'production'
+
   obsolete.delete_if do |path|
     path.end_with? '.br'
   end
