@@ -82,7 +82,7 @@ module Jekyll
 
         Jekyll.logger.debug "Brotli: #{compressed}"
 
-        File.open(compressed, "w+") do |file|
+        File.open(compressed, "wb") do |file|
           file << contents
         end
         File.utime(File.atime(file_name), File.mtime(file_name), compressed)
